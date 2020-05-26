@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:fragment="head">
+        <meta charset="UTF-8">
+        <title th:text="${titulo}"></title>
+        <!-- Fav icon -->
+        <link rel="icon" th:href="@{/images/favicon.png}" type="image/png" sizes="32x32">
+        <!-- UIkit CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.4.6/dist/css/uikit.min.css" />
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+        <!-- UIkit JS -->
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.6/dist/js/uikit.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.6/dist/js/uikit-icons.min.js"></script>
+    </head>
+    <body>
+        <header th:fragment="header">
+            <nav class="uk-background-secondary uk-light" uk-navbar uk-sticky="cls-active: uk-navbar-sticky">
+                <div class="uk-navbar-left">
+                    <a class="uk-navbar-item uk-logo logo" th:href="@{/}" uk-scroll><img class="logo" th:src="@{/images/logo.png}" alt="nuc-a-nuc"></a>
+                </div>
+                <div class="uk-navbar-right">
+                    <ul class="uk-navbar-nav">
+                        <li><a href="#posts" class="uk-button uk-button-text" uk-scroll>Posts</a></li>
+                        <li><a href="#galeria" class="uk-button uk-button-text" uk-scroll>Galeria</a></li>
+                        <li><a href="#contacto" class="uk-button uk-button-text" uk-scroll>Contacto</a></li>
+                        <li><a class="uk-button uk-button-text" th:href="@{/login}">Conectarse</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="uk-alert-primary uk-margin-auto-vertical" th:if="${info != null}" uk-alert>
+                <a class="uk-alert-close" uk-close></a>
+                <p th:text="${info}"></p>
+            </div>
+            <div class="uk-alert-success uk-margin-auto-vertical" th:if="${success != null}" uk-alert>
+                <a class="uk-alert-close" uk-close></a>
+                <p th:text="${success}"></p>
+            </div>
+            <div class="uk-alert-warning uk-margin-auto-vertical" th:if="${warning != null}" uk-alert>
+                <a class="uk-alert-close" uk-close></a>
+                <p th:text="${warning}"></p>
+            </div>
+            <div class="uk-alert-danger uk-margin-auto-vertical"th:if="${error != null}" uk-alert>
+                <a class="uk-alert-close" uk-close></a>
+                <p th:text="${error}"></p>
+            </div>
+        </header>
+        <footer th:fragment="footer" class="uk-background-secondary uk-light">
+            <div class="uk-container uk-text-center">
+                <p class="copyright">Copyright &copy; Nuc a Nuc <span th:text="${#dates.year(#dates.createNow())}">hola</span>
+            </div>
+        </footer>
+    </body>
+</html>

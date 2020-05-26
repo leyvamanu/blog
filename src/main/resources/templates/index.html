@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="layout/layout :: head"></head>
+    <body>
+        <header th:replace="layout/layout :: header"></header>
+
+        <!-- Header -->
+        <section class="uk-background-cover uk-flex img-header uk-height-viewport" uk-parallax="bgy: 500">
+            <div class="uk-width-1-2 uk-text-center uk-margin-auto uk-margin-auto-vertical">
+                <div class="uk-light">
+                    <div class="uk-background-secondary uk-padding">
+                        <img th:src="@{/images/logo.png}" alt="nuc-a-nuc">
+                    </div>
+                    <h1 class="uk-heading-medium uk-text-bold">Manualidades de fieltro y costura</h1>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Posts -->
+        <section class="uk-section uk-section-primary uk-padding-medium-top uk-padding-medium-bottom uk-height-viewport" id="posts">
+            <div class="uk-container uk-text-center uk-margin-large-top">
+                <div uk-scrollspy="cls: uk-animation-slide-top; repeat: true">
+                    <h2 class="uk-text-bold">Ultimos Posts</h2>
+                    <h3 class="uk-text-italic uk-text-muted uk-margin-large-bottom">Aprende con nosotros a hacer figuras de fieltro cosidas a mano y otras muchas cosas!!!</h3>
+                </div>
+                <div class="uk-child-width-1-3" uk-grid>
+
+                    <div uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true" th:each="post: ${posts}">
+                        <div class="uk-card uk-card-default uk-background-secondary uk-light">
+                            <div class="uk-card-header">
+                                <div class="uk-grid-small uk-flex-middle" uk-grid>
+                                    <div class="uk-width-expand">
+                                        <h3 class="uk-card-title uk-margin-remove-bottom" th:text="${post.titulo}"></h3>
+                                        <p class="uk-text-meta uk-margin-remove-top" th:text="${post.fecha}"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="uk-card-media-top">
+                                <img th:src="@{/images/rabbit.jpg}" alt="nuc-a-nuc">
+                            </div>
+                            <div class="uk-card-body">
+                                <p class="uk-text-truncate" th:text="${post.contenido}"></p>
+                            </div>
+                            <div class="uk-card-footer">
+                                <a href="#" class="uk-button uk-button-text">Leer mas</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="uk-align-center" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true">
+                        <a class="uk-button uk-button-secondary" th:href="@{/posts/}">Ver todos</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Galeria -->
+        <section th:fragment="gallery" class="uk-section uk-section-secondary uk-padding-medium-top uk-padding-medium-bottom uk-height-viewport" id="galeria">
+            <div class="uk-container uk-text-center uk-margin-large-top">
+                <div uk-scrollspy="cls: uk-animation-slide-top; repeat: true">
+                    <h2 class="uk-text-bold">Ultimas imagenes</h2>
+                    <h3 class="uk-text-italic uk-text-muted uk-margin-large-bottom">Mira nuestras creaciones</h3>
+                    <div class="uk-child-width-1-3" uk-grid uk-lightbox="animation: fade">
+                        <div th:each="imagen: ${imagenes}">
+                            <a class="uk-inline" th:href="@{'/images/' + ${imagen.nombre}}" th:attr="data-caption=${imagen.descripcion}">
+                                <img th:src="@{'/images/' + ${imagen.nombre}}" th:alt="${imagen.descripcion}">
+                            </a>
+                        </div>
+                        <div>
+<!--                            <a class="uk-inline" th:href="@{/images/snowman.jpg}" data-caption="Caption 1">
+                                <img th:src="@{/images/snowman.jpg}" alt="">
+                            </a>
+                        </div>
+                        <div>
+                            <a class="uk-inline" th:href="@{/images/rabbit.jpg}" data-caption="Caption 2">
+                                <img th:src="@{/images/rabbit.jpg}" alt="">
+                            </a>
+                        </div>
+                        <div>
+                            <a class="uk-inline" th:href="@{/images/heart.jpg}" data-caption="Caption 3">
+                                <img th:src="@{/images/heart.jpg}" alt="">
+                            </a>
+                        </div>
+                        <div>
+                            <a class="uk-inline" th:href="@{/images/snowman_1.jpg}" data-caption="Caption 4">
+                                <img th:src="@{/images/snowman.jpg}" alt="">
+                            </a>
+                        </div>
+                        <div>
+                            <a class="uk-inline" th:href="@{/images/rabbit_1.jpg}" data-caption="Caption 5">
+                                <img th:src="@{/images/rabbit.jpg}" alt="">
+                            </a>
+                        </div>
+                        <div>
+                            <a class="uk-inline" th:href="@{/images/heart_1.jpg}" data-caption="Caption 6">
+                                <img th:src="@{/images/heart.jpg}" alt="">
+                            </a>
+                        </div>-->
+                    </div>
+                </div>
+                <div class="uk-align-center" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true">
+                    <a class="uk-button uk-button-secondary" th:href="@{/galeria/}">Ver todas</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contacto -->
+        <section th:fragment="contact" class="uk-section uk-section-primary uk-padding-medium-top uk-padding-medium-bottom" id="contacto">
+            <div class="uk-container uk-container-xsmall">
+                <div class="uk-text-center">
+                    <h2>Contáctanos</h2>
+                </div>
+                <form action="#" th:action="@{/}" th:object="${email}" method="post">
+                    <div class="uk-margin">
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="nombre" type="text" th:field="*{nombre}" placeholder="Nombre de la empresa o particular..." required/>
+                        </div>
+                    </div>
+                    <div class="uk-margin">
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="direccion" type="email" th:field="*{email}" placeholder="E-mail..." required/>
+                        </div>
+                    </div>
+                    <div class="uk-margin">
+                        <textarea class="uk-textarea" rows="5" th:field="*{mensaje}" placeholder="Escribe tu mensaje..." required></textarea>
+                    </div>
+                    <button class="uk-button uk-button-primary uk-button-large uk-align-center" type="submit">Enviar</button>
+                </form>
+            </div>
+        </section>
+
+        <footer th:replace="layout/layout :: footer"></footer>
+    </body>
+</html>
